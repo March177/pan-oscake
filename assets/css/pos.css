@@ -1,0 +1,182 @@
+/* Modal styles */
+.modal-header {
+  background-color: #4caf50;
+  color: white;
+}
+
+.select-split {
+  margin-bottom: 15px;
+}
+
+.select-group {
+  position: relative;
+}
+
+.form-select {
+  margin-bottom: 1rem;
+}
+
+.form-check {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.form-check-input:checked + .form-check-label {
+  background-color: #ff8343;
+  color: #fff;
+}
+
+.form-check-input {
+  position: absolute;
+  opacity: 0;
+}
+
+.form-check-label {
+  display: block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.form-check-label:hover {
+  background-color: #e9ecef;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.highlight-label {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: #f0f8ff;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.paymentmethod.active {
+  background-color: #f0f0f0;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+}
+
+.checkout-form {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.is-invalid {
+  border: 2px solid red;
+  /* Highlight invalid fields */
+}
+
+.btn-totallabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-totallabel:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  /* Green */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  display: none;
+  /* Hidden by default */
+  z-index: 1000;
+  /* Ensure it is on top */
+  transition: opacity 0.5s ease-in-out;
+}
+.receipt-content {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #fff;
+  border: none;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.receipt-body {
+  padding: 0;
+}
+
+.receipt-header p,
+.store-info p {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.receipt-header .order-number {
+  font-size: 36px;
+  margin: 5px 0;
+}
+
+.receipt-header .translated-text {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.store-info {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.receipt-divider {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.receipt-table {
+  width: 100%;
+  font-size: 14px;
+}
+
+.receipt-table td {
+  padding: 5px 0;
+}
+
+.receipt-total-section {
+  margin-top: 15px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 5px 0;
+}
+
+.receipt-footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.receipt-footer a {
+  color: blue;
+  text-decoration: underline;
+}

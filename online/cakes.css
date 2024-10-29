@@ -1,0 +1,205 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .logo {
+  color: #ea63d5;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.navbar img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  transition: width 0.3s ease;
+}
+
+.navbar .menu {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  transition: font-size 0.3s ease;
+}
+
+.navbar .menu h1 {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar .menu h1:hover {
+  color: #ea63d5;
+}
+
+.navbar.scrolled {
+  padding: 10px; /* Reduced padding when scrolled */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Slightly transparent background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for effect */
+}
+
+.navbar.scrolled img {
+  width: 60px; /* Shrink logo size when scrolled */
+}
+
+.navbar.scrolled .menu h1 {
+  font-size: 16px; /* Reduce font size when scrolled */
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ea63d5;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content h1 {
+  color: white;
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.dropdown-content h1:hover {
+  background-color: #ea63d5;
+}
+
+.cake-section {
+  padding: 20px;
+}
+
+.cake-section h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #5a4a99; /* Title color */
+}
+
+/* Sort Dropdown */
+.sort-dropdown {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sort-dropdown label {
+  margin-right: 10px;
+}
+
+.sort-dropdown select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 10px;
+  transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.sort-dropdown select:hover {
+  border-color: #ea63d5; /* Change border color on hover */
+}
+
+#reset-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ea63d5;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+#reset-btn:hover {
+  background-color: #ea63d5; /* Darker shade on hover */
+}
+
+.cake-card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+/* Individual Cake Card */
+.cake-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s; /* Smooth scaling on hover */
+}
+
+.cake-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.cake-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Price and Name below the card */
+.cake-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.cake-price {
+  font-weight: bold; /* Make price bold */
+  color: #ea63d5; /* Price color */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 1200px) {
+  .cake-card-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .cake-card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cake-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .cake-card-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

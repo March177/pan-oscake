@@ -1,0 +1,114 @@
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+.success-message.show {
+  opacity: 1;
+}
+
+.image-upload {
+  position: relative;
+  width: 100%;
+  height: 200px;
+
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background: #f8f9fa;
+  overflow: hidden;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.upload-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background 0.3s ease;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.upload-icon {
+  max-width: 50px;
+  height: auto;
+  z-index: 1;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  z-index: 0;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.upload-label h4 {
+  margin: 0;
+  padding: 0;
+  color: #6c757d;
+  position: absolute;
+  z-index: 1;
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+.upload-label:hover h4 {
+  color: #007bff;
+
+  filter: blur(4px);
+}
+
+.upload-label:hover .upload-icon {
+  filter: brightness(0.8);
+}
+
+.upload-label:hover .preview-image {
+  filter: blur(4px);
+}
+
+.alert {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.image-preview-container {
+  margin-bottom: 10px;
+}
+
+.existing-image {
+  max-width: 100px;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px;
+}

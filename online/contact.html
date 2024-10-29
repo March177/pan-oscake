@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider with Cake Gallery</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding-top: 80px; /* Add padding equal to the height of the navbar */
+      }
+
+      /* Navbar */
+      .navbar {
+        padding: 20px;
+        background-color: white;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        transition: padding 0.3s ease; /* Smooth transition for padding change */
+      }
+
+      .navbar .logo {
+        color: #6a0dad;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transition: transform 0.3s ease; /* Smooth scaling transition */
+      }
+
+      .navbar img {
+        width: 100px;
+        height: auto;
+        margin-bottom: 10px;
+        transition: width 0.3s ease; /* Smooth logo size change */
+      }
+
+      .navbar .menu {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        transition: font-size 0.3s ease; /* Smooth font size change */
+      }
+
+      .navbar .menu h1 {
+        font-size: 18px;
+        color: #333;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .navbar .menu h1:hover {
+        color: #6a0dad;
+      }
+
+      .navbar.scrolled {
+        padding: 10px; /* Reduced padding when scrolled */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Slightly transparent background */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for effect */
+      }
+
+      .navbar.scrolled img {
+        width: 60px; /* Shrink logo size when scrolled */
+      }
+
+      .navbar.scrolled .menu h1 {
+        font-size: 16px; /* Reduce font size when scrolled */
+      }
+
+      /* Slider Container */
+      .slider {
+        width: 100%; /* Full width */
+        margin: 0; /* Remove top and bottom margins */
+        overflow: hidden;
+        position: relative;
+        height: 70vh; /* Reduce height to fit better in the viewport */
+      }
+
+      .slider img {
+        width: 100%;
+        height: 100%; /* Adjust image height to fill the entire slider area */
+        object-fit: cover; /* Ensures images cover the area */
+        display: none; /* Hide images by default */
+      }
+
+      /* Dots Navigation */
+      .dots {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 20px; /* Position dots at the bottom of the image */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Align it to the center */
+        z-index: 10; /* Ensure dots are on top of images */
+      }
+
+      .dot {
+        height: 12px; /* Slightly smaller dots */
+        width: 12px;
+        margin: 0 5px;
+        background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent dots */
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .active-dot {
+        background-color: rgba(
+          106,
+          13,
+          173,
+          0.9
+        ); /* Active dot with purple color */
+      }
+
+      /* Cakes Section */
+      .cakes-section {
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        position: relative; /* Make the section relative for absolute positioning */
+      }
+
+      .cakes-section h2 {
+        font-size: 36px;
+        color: #333;
+        margin-bottom: 50px;
+      }
+
+      .cakes-gallery {
+        display: flex; /* Flex for horizontal alignment */
+        transition: transform 0.5s ease; /* Smooth transition for sliding */
+      }
+
+      .cakes-gallery div {
+        min-width: calc(100% / 4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px; /* Add margin at the bottom of each card */
+      }
+
+      .cakes-gallery img {
+        width: 320px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease; /* Transition for hover effect */
+      }
+
+      .cakes-gallery img:hover {
+        transform: scale(1.05); /* Scale up on hover */
+      }
+
+      .cake-info {
+        text-align: center;
+        margin-top: 40px; /* Space above the name and price */
+        font-size: 18px; /* Adjust font size for names and prices */
+        margin-bottom: 15px; /* Add space below the name and price */
+      }
+
+      .gallery-nav {
+        position: absolute; /* Position buttons absolutely */
+        top: 50%;
+        width: 100%; /* Full width for the buttons */
+        display: flex;
+        justify-content: space-between; /* Space buttons to the sides */
+        transform: translateY(-50%); /* Center vertically */
+        z-index: 10; /* Ensure buttons are above images */
+      }
+
+      .gallery-nav button {
+        padding: 10px 20px;
+        background-color: #6a0dad;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .gallery-nav button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+      }
+
+      /* View All Button */
+      .view-all {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #6a0dad;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+      }
+
+      .view-all:hover {
+        background-color: #5b0c9b; /* Darken on hover */
+      }
+
+      /* Dropdown Styles */
+      .dropdown {
+        position: relative; /* Position relative for absolute positioning of dropdown content */
+        display: inline-block; /* Allows the dropdown to sit inline with other elements */
+      }
+
+      .dropdown-content {
+        display: none; /* Hidden by default */
+        position: absolute; /* Position it absolutely */
+        background-color: #f9f9f9; /* Background color of the dropdown */
+        min-width: 160px; /* Minimum width of the dropdown */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for the dropdown */
+        z-index: 1; /* Ensure it appears above other content */
+        opacity: 0; /* Start with opacity 0 */
+        transform: translateY(-10px); /* Start slightly above */
+        transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for opacity and position */
+        pointer-events: none; /* Disable pointer events */
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block; /* Show dropdown on hover */
+        opacity: 1; /* Fade in effect */
+        transform: translateY(0); /* Move to original position */
+        pointer-events: auto; /* Enable pointer events */
+      }
+
+      .dropdown-content h1 {
+        color: #333; /* Color of the dropdown items */
+        padding: 12px 16px; /* Padding for dropdown items */
+        text-align: left; /* Align text to the left */
+        cursor: pointer; /* Pointer cursor on hover */
+      }
+
+      .dropdown-content h1:hover {
+        background-color: #ddd; /* Change background color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <img src="images/bday2.png" alt="Logo" />
+        <span>Purple Cakeshop</span>
+      </div>
+      <div class="menu">
+        <h1>Home</h1>
+        <div class="dropdown">
+          <h1>Cake Menu</h1>
+          <div class="dropdown-content">
+            <h1>Premium Cake</h1>
+            <h1>Mini Cake</h1>
+            <h1>Best Seller</h1>
+          </div>
+        </div>
+
+        <h1>Order</h1>
+        <h1>Contact Us</h1>
+      </div>
+    </nav>
+
+    <!-- Image Slider -->
+    <div class="slider">
+      <img src="images/bday1.png" alt="Cake 1" />
+      <img src="images/bday2.png" alt="Cake 2" />
+      <img src="images/bday3.png" alt="Cake 3" />
+      <img src="images/bday4.png" alt="Cake 4" />
+      <div class="dots">
+        <span class="dot" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+      </div>
+    </div>
+
+    <!-- Cakes Section -->
+    <div class="cakes-section">
+      <h2>Our Cakes</h2>
+      <div class="cakes-gallery">
+        <div>
+          <img src="images/bday6.png" alt="Cake 1" />
+          <div class="cake-info">
+            <h3>Chocolate Cake</h3>
+            <p>$30</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 2" />
+          <div class="cake-info">
+            <h3>Vanilla Cake</h3>
+            <p>$25</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 3" />
+          <div class="cake-info">
+            <h3>Red Velvet Cake</h3>
+            <p>$35</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+        <div>
+          <img src="images/bday6.png" alt="Cake 4" />
+          <div class="cake-info">
+            <h3>Carrot Cake</h3>
+            <p>$28</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-nav">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+      </div>
+      <button class="view-all">View All Cakes</button>
+    </div>
+
+    <script>
+      // Image slider logic
+      const slides = document.querySelectorAll(".slider img");
+      const dots = document.querySelectorAll(".dot");
+      let currentSlide = 0;
+
+      function showSlide(index) {
+        slides[currentSlide].style.display = "none"; // Hide current slide
+        dots[currentSlide].classList.remove("active-dot"); // Remove active dot
+
+        currentSlide = (index + slides.length) % slides.length; // Update current slide index
+        slides[currentSlide].style.display = "block"; // Show new slide
+        dots[currentSlide].classList.add("active-dot"); // Activate new dot
+      }
+
+      // Initialize slider
+      showSlide(currentSlide);
+      setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 3000); // Change slide every 3 seconds
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          showSlide(Number(dot.dataset.index)); // Change slide on dot click
+        });
+      });
+
+      // Cakes Gallery logic
+      const cakesGallery = document.querySelector(".cakes-gallery");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      let currentGalleryIndex = 0;
+
+      function updateGallery() {
+        const totalCakes =
+          document.querySelectorAll(".cakes-gallery div").length; // Count total cakes
+        const itemsPerSlide = 4; // Number of cakes per slide
+        const totalSlides = Math.ceil(totalCakes / itemsPerSlide); // Calculate total slides
+
+        // Disable buttons based on current gallery index
+        prevBtn.disabled = currentGalleryIndex === 0;
+        nextBtn.disabled = currentGalleryIndex === totalSlides - 1;
+
+        // Move the gallery based on current index
+        cakesGallery.style.transform = `translateX(-${
+          (currentGalleryIndex * 100) / totalSlides
+        }%)`;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        currentGalleryIndex -= 1; // Move to the previous slide
+        updateGallery(); // Update gallery view
+      });
+
+      nextBtn.addEventListener("click", () => {
+        currentGalleryIndex += 1; // Move to the next slide
+        updateGallery(); // Update gallery view
+      });
+
+      // Initialize gallery view
+      updateGallery();
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 0) {
+          navbar.classList.add("scrolled"); // Add class if scrolled
+        } else {
+          navbar.classList.remove("scrolled"); // Remove class if at top
+        }
+      });
+    </script>
+  </body>
+</html>

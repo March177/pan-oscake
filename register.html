@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/admin.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <form class="login-form" action="register.php" method="POST">
+          <span class="form-title">Register</span>
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirm_password" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              name="confirm_password"
+              class="form-control"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="submit"
+              class="btn btn-primary btn-lg btn-block"
+              value="Signup"
+            />
+          </div>
+          <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        </form>
+      </div>
+    </div>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

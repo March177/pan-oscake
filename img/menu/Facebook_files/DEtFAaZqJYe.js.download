@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("CometStickerPickerPopoverRoot.react",["ARIA_LABEL_PLACEHOLDER_FIXME","CometRelay","FDSToggletipCard.react","react"],(function(a,b,c,d,e,f,g){"use strict";var h,i=(h||(h=d("react"))).c,j=h;function a(a){var b=i(5),e=a.entryPoints;a=a.props;e=e.stickerPickerCardEntrypointReference;var f;b[0]!==a?(f=babelHelpers["extends"]({},a),b[0]=a,b[1]=f):f=b[1];b[2]!==e||b[3]!==f?(a=j.jsx(c("FDSToggletipCard.react"),{addPadding:!1,"aria-label":c("ARIA_LABEL_PLACEHOLDER_FIXME"),content:j.jsx(d("CometRelay").EntryPointContainer,{entryPointReference:e,props:f}),withArrow:!0}),b[2]=e,b[3]=f,b[4]=a):a=b[4];return a}g["default"]=a}),98);
