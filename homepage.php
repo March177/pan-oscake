@@ -129,9 +129,8 @@ $conn->close();
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       /* Shadow when scrolled */
       padding: 5px 0;
-      /* Even smaller padding when scrolled */
+      /* Smaller padding when scrolled */
     }
-
 
     body {
       padding-top: 80px;
@@ -141,13 +140,35 @@ $conn->close();
     .navbar a {
       font-size: 1.25rem;
       margin: 0 20px;
-      transition: color 0.3s, font-size 0.3s;
+      transition: color 0.3s, font-size 0.3s, border-bottom 0.3s;
+      /* Add transition for border */
+      position: relative;
+      /* Set position for pseudo-element */
     }
 
-    .navbar.scrolled a {
-      font-size: 1rem;
-      /* Smaller font size when navbar is scrolled */
+    /* Hover effect */
+    .navbar a:hover {
+      color: #e91e63;
+      /* Change color on hover */
     }
+
+    /* Add border bottom on hover */
+    .navbar a:hover::after {
+      content: "";
+      /* Required for pseudo-element */
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -5px;
+      /* Adjust the position of the line */
+      height: 2px;
+      /* Height of the line */
+      background-color: #e91e63;
+      /* Color of the line */
+      transition: width 0.3s;
+      /* Transition for width effect */
+    }
+
 
     .dropdown {
       position: relative;
@@ -201,7 +222,7 @@ $conn->close();
       /* Ensure both image and card stretch to the same height */
       max-width: 1200px;
       margin: 0 auto;
-      margin-top: 100px;
+      margin-top: 200px;
     }
 
     .cake-image-large {
@@ -261,7 +282,7 @@ $conn->close();
     }
 
     .quantity-btn {
-      background-color: #e2e8f0;
+
       color: #333;
       border: none;
       border-radius: 4px;
@@ -271,9 +292,7 @@ $conn->close();
       margin-right: 10px;
     }
 
-    .quantity-btn:hover {
-      background-color: #d1d5db;
-    }
+
 
     .quantity-input {
       width: 80px;
@@ -288,6 +307,7 @@ $conn->close();
     .btn {
       padding: 10px 20px;
       margin-right: 10px;
+      margin-bottom: 10px;
       background-color: #e63946;
       color: #ffffff;
       border: none;
@@ -327,9 +347,9 @@ $conn->close();
     .cart-icon {
       position: absolute;
       /* Change to absolute */
-      right: 20px;
+      right: 130px;
       /* Adjust this value to move it to the right */
-      top: 75%;
+      top: 81%;
       /* Center vertically */
       transform: translateY(-50%);
       /* Adjust to align vertically */
@@ -346,7 +366,7 @@ $conn->close();
       position: absolute;
       top: 5px;
       /* Adjust position */
-      right: 10px;
+      right: -21px;
       /* Adjust position */
       background-color: #f472b6;
       color: white;
@@ -399,7 +419,7 @@ $conn->close();
 
     .slide {
       position: absolute;
-      top: 0;
+      top: -5px;
       left: 0;
       width: 100%;
       height: 100%;
@@ -461,15 +481,7 @@ $conn->close();
       /* Spacing above the image */
     }
 
-    .swiper-pagination-bullet {
-      background-color: #805ad5;
-      /* Purple color for the pagination bullets */
-    }
 
-    .swiper-pagination-bullet-active {
-      background-color: #6b46c1;
-      /* Darker purple for the active pagination bullet */
-    }
 
 
 
@@ -504,6 +516,16 @@ $conn->close();
       /* Adjust as needed */
       color: white;
       /* Text color on hover */
+    }
+
+    .py-12 {
+      margin-top: 133px;
+    }
+
+
+    .mb-6 {
+
+      margin-top: 70px;
     }
   </style>
 </head>
@@ -655,21 +677,22 @@ $conn->close();
   <!-- Home Section -->
   <?php if ($showHome): ?>
     <!-- Home Section -->
-    <section class="relative h-screen mt-20">
-
+    <section class="relative h-screen mt-20 pt-14"> <!-- Keep padding for layout -->
       <div class="swiper-wrapper">
-
         <div class="slide bg-cover bg-center h-full active" style="background-image: url('img/menu/358469869_254743360647205_1026146190933563339_n.jpg');"></div>
         <div class="slide bg-cover bg-center h-full" style="background-image: url('img/menu/413853460_770213638480751_4222491395428614504_n.jpg');"></div>
         <div class="slide bg-cover bg-center h-full" style="background-image: url('img/menu/413977274_770213805147401_5341769230694672793_n.jpg');"></div>
       </div>
-      </div>
-      <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
-        <h1 class="text-white text-4xl sm:text-6xl font-bold">Delicious Cakes for Every Occasion</h1>
-        <p class="text-white mt-4 text-lg">Order your favorite cakes online</p>
-        <a href="?section=cakemenu&category=all" class="mt-6 px-8 py-3 bg-pink-500 text-white rounded-lg shadow hover:bg-pink-600">Order Now</a>
+
+      <div class="absolute inset-0 flex flex-col justify-center items-center text-white pt-15"> <!-- Keep padding as needed -->
+
+        <a href="?section=cakemenu&category=all" class="mt-6 px-8 py-3 bg-pink-500 text-white rounded-lg shadow hover:bg-pink-600 relative z-10">Order Now</a> <!-- Added z-10 -->
+        <h2 class="text-3xl font-bold text-yellow-300">Delicious Cakes for Every Occasion</h2> <!-- Added heading with color -->
+        <p class="mt-2 text-lg text-yellow-200">Order your favorite cakes online</p> <!-- Added paragraph with color -->
       </div>
     </section>
+
+
 
 
     <!-- Purple Cake Provider Section -->
@@ -745,7 +768,7 @@ $conn->close();
 
   <!-- Cake Menu Section -->
   <?php if ($showCakeMenu): ?>
-    <section class="py-12 bg-gray-100 pt-100 mt-20"> <!-- Add mt-20 for top margin -->
+    <section class="py-12 bg-gray-100 pt-100 mt-133"> <!-- Add mt-20 for top margin -->
       <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-3xl font-semibold text-center">Our Cakes</h2>
 
@@ -858,7 +881,7 @@ $conn->close();
 
   <section class="reviews-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-pink-700 text-center mb-6">Customer Reviews</h2>
+      <h2 class="text-3xl font-bold text-black-700 text-center mb-6">Customer Reviews</h2>
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -870,7 +893,7 @@ $conn->close();
                   <img src="img/customer-avatar.png" alt="Claire" class="h-10 w-10 rounded-full">
                 </div>
                 <div class="ml-4">
-                  <h3 class="text-lg font-semibold">Claire</h3>
+                  <h3 class="text-lg font-semibold">Rod</h3>
                   <p class="text-gray-500">8 months ago</p>
                 </div>
               </div>
@@ -881,7 +904,7 @@ $conn->close();
                 </div>
                 <p class="mt-1">Simply delicious</p>
                 <p class="mt-2 text-gray-700">
-                  I recently purchased a cake from Sweet Cake Mingla to celebrate my one-year anniversary with my fiancé, and it was an absolute delight. The cake wasn’t overly sweet, just right. The ube cake boasted remarkable moisture and fluffiness. I highly recommend this cake because it’s simply delicious. It made our celebration even more memorable.
+                  I recently purchased a cake from Sweet Cake Mingla to celebrate my one-year anniversary.
                 </p>
                 <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
               </div>
@@ -907,35 +930,7 @@ $conn->close();
                 </div>
                 <p class="mt-1">Simply delicious</p>
                 <p class="mt-2 text-gray-700">
-                  I recently purchased a cake from Sweet Cake Mingla to celebrate my one-year anniversary with my fiancé, and it was an absolute delight. The cake wasn’t overly sweet, just right. The ube cake boasted remarkable moisture and fluffiness. I highly recommend this cake because it’s simply delicious. It made our celebration even more memorable. Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
-                </p>
-                <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
-              </div>
-            </div>
-          </div>
-
-
-
-          <!-- Review 1 -->
-          <div class="swiper-slide">
-            <div class="border border-gray-300 rounded-lg p-4">
-              <div class="flex items-center">
-                <div class="flex-shrink-0">
-                  <img src="img/customer-avatar.png" alt="Claire" class="h-10 w-10 rounded-full">
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-semibold">Claire</h3>
-                  <p class="text-gray-500">8 months ago</p>
-                </div>
-              </div>
-              <div class="mt-2">
-                <p class="text-xl font-bold">Product Review</p>
-                <div class="mt-2 text-yellow-500">
-                  ★★★★☆
-                </div>
-                <p class="mt-1">Simply delicious</p>
-                <p class="mt-2 text-gray-700">
-                  I recently purchased a cake from Sweet Cake Mingla to celebrate my one-year anniversary with my fiancé, and it was an absolute delight. The cake wasn’t overly sweet, just right. The ube cake boasted remarkable moisture and fluffiness. I highly recommend this cake because it’s simply delicious. It made our celebration even more memorable. Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
+                  It was an absolute delight. The cake wasn’t overly sweet, just right. The ube cake boasted remarkable moisture and fluffiness. I highly recommend this cake because it’s simply delicious. It made our celebration even more memorable. Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
                 </p>
                 <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
               </div>
@@ -963,7 +958,34 @@ $conn->close();
                 </div>
                 <p class="mt-1">Simply delicious</p>
                 <p class="mt-2 text-gray-700">
-                  asn’t overly sweet, just right. The ube cake boasted remarkable moisture and fluffiness
+                  Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
+                </p>
+                <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Review 1 -->
+          <div class="swiper-slide">
+            <div class="border border-gray-300 rounded-lg p-4">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <img src="img/customer-avatar.png" alt="Claire" class="h-10 w-10 rounded-full">
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold">Claire</h3>
+                  <p class="text-gray-500">8 months ago</p>
+                </div>
+              </div>
+              <div class="mt-2">
+                <p class="text-xl font-bold">Product Review</p>
+                <div class="mt-2 text-yellow-500">
+                  ★★★★☆
+                </div>
+                <p class="mt-1">Simply delicious</p>
+                <p class="mt-2 text-gray-700">
+                  Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
                 </p>
                 <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
               </div>
@@ -973,8 +995,60 @@ $conn->close();
 
 
 
+          <!-- Review 1 -->
+          <div class="swiper-slide">
+            <div class="border border-gray-300 rounded-lg p-4">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <img src="img/customer-avatar.png" alt="Claire" class="h-10 w-10 rounded-full">
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold">Claire</h3>
+                  <p class="text-gray-500">8 months ago</p>
+                </div>
+              </div>
+              <div class="mt-2">
+                <p class="text-xl font-bold">Product Review</p>
+                <div class="mt-2 text-yellow-500">
+                  ★★★★☆
+                </div>
+                <p class="mt-1">Simply delicious</p>
+                <p class="mt-2 text-gray-700">
+                  Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
+                </p>
+                <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
+              </div>
+            </div>
+          </div>
 
 
+
+
+          <!-- Review 1 -->
+          <div class="swiper-slide">
+            <div class="border border-gray-300 rounded-lg p-4">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <img src="img/customer-avatar.png" alt="Claire" class="h-10 w-10 rounded-full">
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold">Claire</h3>
+                  <p class="text-gray-500">8 months ago</p>
+                </div>
+              </div>
+              <div class="mt-2">
+                <p class="text-xl font-bold">Product Review</p>
+                <div class="mt-2 text-yellow-500">
+                  ★★★★☆
+                </div>
+                <p class="mt-1">Simply delicious</p>
+                <p class="mt-2 text-gray-700">
+                  Thank you, Sweet Cake Mingla, for creating such a wonderful treat!
+                </p>
+                <a href="#" class="text-pink-500 mt-4 inline-block">View product</a>
+              </div>
+            </div>
+          </div>
 
         </div>
         <div class="swiper-pagination"></div>
@@ -1010,7 +1084,7 @@ $conn->close();
       <div class="flex flex-col lg:flex-row justify-between items-center border-t border-red-500 pt-6 mt-6 text-sm">
 
         <!-- Footer Links -->
-        <div class="flex space-x-8 mb-4 lg:mb-0">
+        <div class="flex space-x-8 mb-4 lg:mb-0 mt-50"> <!-- Added mt-4 for top margin -->
           <a href="?section=payments" class="text-gray-800 hover:text-pink-500">Mode of Payments</a>
           <a href="?section=about" class="text-gray-800 hover:text-pink-500">About Us</a>
           <a href="#contact" class="text-gray-800 hover:text-pink-500">Contact Us</a>
@@ -1043,10 +1117,7 @@ $conn->close();
         delay: 2000, // Slide change delay in milliseconds (faster)
         disableOnInteraction: false, // Continue autoplay after interaction
       },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
+      pagination: false, // Disable pagination dots
       breakpoints: {
         640: {
           slidesPerView: 1,
@@ -1081,6 +1152,7 @@ $conn->close();
     swiperContainer.addEventListener('mouseleave', () => {
       swiper.autoplay.start(); // Resume autoplay
     });
+
 
 
 
